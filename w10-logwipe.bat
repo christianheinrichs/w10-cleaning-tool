@@ -5,10 +5,13 @@ del "%programdata%\NVIDIA Corporation\nvtopps\*.log"
 del "%programdata%\NVIDIA Corporation\NvProfileUpdaterPlugin\*.log"
 del "%programdata%\NVIDIA Corporation\NvProfileUpdaterPlugin\*.log.bak"
 del /q %programdata%\GOG.com\Galaxy\logs\*
+del "%programdata%\Rockstar Games\Launcher\*.txt"
 del "C:\Program Files (x86)\Steam\*.log"
 del "C:\Program Files (x86)\Steam\*.log.last"
 del /q "C:\Program Files (x86)\Steam\logs\*"
 del /q %localappdata%\EpicGamesLauncher\Saved\Logs\*
+del "%userprofile%\Documents\Rockstar Games\Launcher\*.log"
+del "%userprofile%\Documents\Rockstar Games\Social Club\*.log"
 del %systemroot%\*.log
 del %systemroot%\INF\*.log
 del %systemroot%\Logs\*.log
@@ -162,7 +165,7 @@ wevtutil cl WFC
 wevtutil cl "Windows PowerShell"
 
 echo.
-echo The following logs were deleted: Epic Games Launcher, GOG Galaxy, NVIDIA, Steam
+echo The following logs were deleted: Epic Games Launcher, GOG Galaxy, NVIDIA, Rockstar Games Launcher, Steam
 echo Windows logs have been emptied...
 echo.
 
