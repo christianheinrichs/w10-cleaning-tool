@@ -1,7 +1,7 @@
 w10-logwipe
 ===========
 
-###### Rationale
+##### Rationale
 Are you sick of log files clogging up your Windows machine? Well, look no
 further. This script empties almost all Windows log files. Unfortunately, I am
 not aware of any way of removing logs which are handled by the `wevtutil`
@@ -13,9 +13,10 @@ The currently supported ones are:
 - Epic Games Launcher
 - GOG Galaxy 2.0
 - NVIDIA control panel
+- Rockstar Games Launcher
 - Steam
 
-###### Usage
+##### Usage
 In this section, there will be two methods described of executing this script.
 Feel free to do this any way you want to.
 
@@ -31,7 +32,7 @@ Feel free to do this any way you want to.
 3. Type in `w10-logwipe.bat` or `start w10-logwipe.bat` to start it in a new
    window
 
-###### Closing note
+##### Closing note
 Please take into consideration that one or more log files might not get emptied.
 The reason for this is the explicit selection of logs which are emptied as per
 `wevtutil`. A fix is currently on the to do list.
