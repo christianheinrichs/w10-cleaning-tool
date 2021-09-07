@@ -1,17 +1,46 @@
 @echo off
 
+title Windows 10 log wipe script running
+
+rem Epic Games Launcher
+echo Epic Games Launcher: Deleting logs
+echo.
+del /q %localappdata%\EpicGamesLauncher\Saved\Logs\*
+
+rem GOG Galaxy 2.0
+echo GOG Galaxy 2.0: Deleting logs
+echo.
+del /q %programdata%\GOG.com\Galaxy\logs\*
+
+rem NVIDIA control panel
+echo NVIDIA control panel: Deleting logs
+echo.
 del /q %programdata%\NVIDIA\*
 del "%programdata%\NVIDIA Corporation\nvtopps\*.log"
+del "%programdata%\NVIDIA Corporation\DisplayDriverRAS\NvTelemetry\*.log"
+del "%programdata%\NVIDIA Corporation\DisplayDriverRAS\NvTelemetry\*.log.bak"
 del "%programdata%\NVIDIA Corporation\NvProfileUpdaterPlugin\*.log"
 del "%programdata%\NVIDIA Corporation\NvProfileUpdaterPlugin\*.log.bak"
-del /q %programdata%\GOG.com\Galaxy\logs\*
+echo.
+
+rem Rockstar Games Launcher
+echo Rockstar Games Launcher: Deleting logs
+echo.
 del "%programdata%\Rockstar Games\Launcher\*.txt"
+del "%userprofile%\Documents\Rockstar Games\Launcher\*.log"
+del "%userprofile%\Documents\Rockstar Games\Social Club\*.log"
+
+rem Steam
+echo Steam: Deleting logs
+echo.
 del "C:\Program Files (x86)\Steam\*.log"
 del "C:\Program Files (x86)\Steam\*.log.last"
 del /q "C:\Program Files (x86)\Steam\logs\*"
-del /q %localappdata%\EpicGamesLauncher\Saved\Logs\*
-del "%userprofile%\Documents\Rockstar Games\Launcher\*.log"
-del "%userprofile%\Documents\Rockstar Games\Social Club\*.log"
+
+
+rem Removable Windows logs
+echo Deleting removable Windows logs
+echo.
 del %systemroot%\*.log
 del %systemroot%\INF\*.log
 del %systemroot%\Logs\*.log
@@ -20,10 +49,47 @@ del %systemroot%\Logs\DISM\*.log
 del %systemroot%\System32\*.log
 del %systemroot%\System32\LogFiles\setupcln\*.log
 del %systemroot%\SysWOW64\*.log
+echo.
+
+rem Microsoft Edge Update
+echo Microsoft Edge Update: Ending task
+echo.
+taskkill /f /im MicrosoftEdgeUpdate.exe
+echo Microsoft Edge Update: Deleting logs
+echo.
+del /q %programdata%\Microsoft\EdgeUpdate\Log\*
+echo.
+
+rem Microsoft Security Client
+echo Microsoft Security Client: Deleting logs
+echo.
+del "%programdata%\Microsoft\Microsoft Security Client\Support\*.log"
+echo.
+
+rem Windows Defender
+
+rem Without temporarily disabling Windows Defender, this probably won’t work
+rem Obviously NOT recommended!
+echo Windows Defender: Trying to delete logs
+echo.
+del "C:\ProgramData\Microsoft\Windows Defender\Support\*.log"
+
+rem Windows network downloader
+echo Windows network downloader: Deleting logs
+echo.
+del %programdata%\Microsoft\Network\Downloader\*.log
+
+rem Windows SmsRouter MessageStore
+echo Windows SmsRouter MessageStore: Deleting logs
+echo.
+del %programdata%\Microsoft\SmsRouter\MessageStore\*.log
 
 rem Requires administration privileges
 rem TODO: Iterate through all logs without writing out logfile names explicitly
 
+rem Empty Windows log files via wevtutil
+echo Emptying Windows log files via wevtutil
+echo.
 wevtutil cl Application
 wevtutil cl Microsoft-Client-Licensing-Platform/Admin
 wevtutil cl Microsoft-Windows-AAD/Operational
@@ -56,6 +122,7 @@ wevtutil cl Microsoft-Windows-Crypto-NCrypt/Operational
 wevtutil cl Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Admin
 wevtutil cl Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Debug
 wevtutil cl Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider/Operational
+wevtutil cl Microsoft-Windows-DxgKrnl-Admin
 wevtutil cl Microsoft-Windows-DeviceSetupManager/Admin
 wevtutil cl Microsoft-Windows-DeviceSetupManager/Operational
 wevtutil cl Microsoft-Windows-Diagnosis-DPS/Analytic
@@ -165,7 +232,7 @@ wevtutil cl WFC
 wevtutil cl "Windows PowerShell"
 
 echo.
-echo The following logs were deleted: Epic Games Launcher, GOG Galaxy, NVIDIA, Rockstar Games Launcher, Steam
+echo The following logs were deleted: Epic Games Launcher, GOG Galaxy, NVIDIA control panel, Rockstar Games Launcher, Steam
 echo Windows logs have been emptied...
 echo.
 
