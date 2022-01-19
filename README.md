@@ -22,7 +22,7 @@ Feel free to do this any way you want to.
 
 *Method 1*
 1. First and foremost, this script requires administrator privileges
-2. Create a shortcut to this script and set it to run with admininistrator
+2. Create a shortcut to this script and set it to run with administrator
    privileges in the ‘Advanced’ section of the shortcut tab
 3. Simply doubleclick the shortcut
 

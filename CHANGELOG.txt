@@ -17,7 +17,10 @@ Version 7.9.2021
   downloader, Windows SmsRouter MessageStore
 - Empty DxgKrnl Admin logs
 
-Version 19.1.2022
+Version 19.1.2022-r1
 - Update README.md
 - Add changelog
 - Add README plaintext file
+
+Version 19.1.2022-r2
+- Correct typo
