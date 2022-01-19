@@ -1,12 +1,12 @@
 w10-logwipe
-===========
 
-##### Rationale
+Rationale
+
 Are you sick of log files clogging up your Windows machine? Well, look no
 further. This script empties almost all Windows log files. Unfortunately, I am
-not aware of any way of removing logs which are handled by the `wevtutil`
+not aware of any way of removing logs which are handled by the ‘wevtutil’
 command. Log files which can be deleted are done so by utilising the OS’
-internal `del` command. It can also wipe logs of third-party programs.
+internal ‘del’ command. It can also wipe logs of third-party programs.
 
 The currently supported ones are:
 
@@ -16,26 +16,30 @@ The currently supported ones are:
 - Rockstar Games Launcher
 - Steam
 
-##### Usage
+Usage
+
 In this section, there will be two methods described of executing this script.
 Feel free to do this any way you want to.
 
-*Method 1*
+Method 1
+
 1. First and foremost, this script requires administrator privileges
-2. Create a shortcut to this script and set it to run with admininistrator
+2. Create a shortcut to this script and set it to run with administrator
    privileges in the ‘Advanced’ section of the shortcut tab
 3. Simply doubleclick the shortcut
 
-*Method 2*
+Method 2
+
 1. Run the Windows command prompt as administrator
-2. Navigate to the script’s location via `cd`
-3. Type in `w10-logwipe.bat` or `start w10-logwipe.bat` to start it in a new
+2. Navigate to the script’s location via ‘cd’
+3. Type in ‘w10-logwipe.bat’ or ‘start w10-logwipe.bat’ to start it in a new
    window
 
-##### Closing note
+Closing note
+
 Please take into consideration that one or more log files might not get emptied.
 The reason for this is the explicit selection of logs which are emptied as per
-`wevtutil`. A fix is currently on the to do list.
+‘wevtutil’. A fix is currently on the to do list.
 
 This script assumes that you’re using Windows 10. It might or might not work on
 earlier versions like Windows 7 or Windows 8. This script also assumes a default

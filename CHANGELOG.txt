@@ -1,0 +1,23 @@
+Version 19.7.2021
+- First commit
+
+Version 6.8.2021
+- Add ‘Rockstar Games Launcher’
+
+Version 18.8.2021
+- Make headings slightly larger in README.md
+- Add the ‘Rockstar Games Launcher’ to README.md
+
+Version 7.9.2021
+- Set title
+- Create sections
+- Add feedback via ‘echo’ command
+- NVIDIA control panel: Delete telemetry logs
+- Delete logs: Microsoft Edge Update, Microsoft Security Client, Windows network
+  downloader, Windows SmsRouter MessageStore
+- Empty DxgKrnl Admin logs
+
+Version 19.1.2022
+- Update README.md
+- Add changelog
+- Add README plaintext file
