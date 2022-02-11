@@ -1,0 +1,3 @@
+- reg delete: Delete every registry key located under a specified full key
+- wevtutil: Iterate through all logs without writing out logfile names
+  explicitly

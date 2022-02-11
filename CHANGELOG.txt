@@ -24,3 +24,7 @@ Version 19.1.2022-r1
 
 Version 19.1.2022-r2
 - Correct typo
+
+Version 11.2.2022
+- Convert w10-logwipe project to w10-cleaning-tool
+- Add TODO file
