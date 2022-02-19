@@ -28,3 +28,6 @@ Version 19.1.2022-r2
 Version 11.2.2022
 - Convert w10-logwipe project to w10-cleaning-tool
 - Add TODO file
+
+Version 19.2.2022
+- Add licensing information

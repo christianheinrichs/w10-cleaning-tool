@@ -75,3 +75,8 @@ While I tried my best to provide you a tool to gain a little bit more privacy
 on a Windows 10 machine, it doesn’t give you any protection against a
 determined attacker. It also does not protect you against file recovery
 attacks. Use this script at your own risk.
+
+Licensing
+
+This project is licensed under the GNU GPL 3.0 license. To read it, please
+refer to the LICENSE document.
