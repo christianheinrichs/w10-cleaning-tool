@@ -31,3 +31,8 @@ Version 11.2.2022
 
 Version 19.2.2022
 - Add licensing information
+
+Version 19.3.2022
+- Sort registry clean section alphabetically
+- Enforce double quote usage
+- Include HKCU\System\GameConfigStore\Parents
