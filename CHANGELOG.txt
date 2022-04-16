@@ -36,3 +36,7 @@ Version 19.3.2022
 - Sort registry clean section alphabetically
 - Enforce double quote usage
 - Include HKCU\System\GameConfigStore\Parents
+
+Version 16.4.2022
+- Improve wevtutil routine
+- Improve registry clean section

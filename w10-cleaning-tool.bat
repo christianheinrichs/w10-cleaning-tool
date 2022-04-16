@@ -1,7 +1,7 @@
 @echo off
 
 rem w10-cleaning-tool.bat
-rem Last modified on 10 March 2022
+rem Last modified on 16 April 2022
 
 rem Clean prefetch section
 
@@ -178,156 +178,68 @@ if exist "%wsrmslogdir%\*.log" (
 
 rem Requires administrator rights
 
-set "mwaexp=Microsoft-Windows-Application-Experience"
-set "mwcscls=Microsoft-Windows-CertificateServicesClient-Lifecycle-System"
-set "mwdmedp=Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider"
-set "mwpdp=Microsoft-Windows-Provisioning-Diagnostics-Provider"
-set "mwwfwas=Microsoft-Windows-Windows Firewall With Advanced Security"
-
 rem Empty Windows log files via wevtutil
 echo Emptying Windows log files via wevtutil
 echo.
 
-wevtutil cl "Application"
-wevtutil cl "Microsoft-Client-Licensing-Platform/Admin"
-wevtutil cl "Microsoft-Windows-AAD/Operational"
-wevtutil cl "%mwaexp%/Program-Compatibility-Assistant"
-wevtutil cl "%mwaexp%/Program-Compatibility-Troubleshooter"
-wevtutil cl "Microsoft-Windows-Application-Experience/Program-Telemetry"
-wevtutil cl "Microsoft-Windows-AppModel-Runtime/Admin"
-wevtutil cl "Microsoft-Windows-AppReadiness/Admin"
-wevtutil cl "Microsoft-Windows-AppReadiness/Operational"
-wevtutil cl "Microsoft-Windows-AppXDeployment/Operational"
-wevtutil cl "Microsoft-Windows-AppXDeploymentServer/Operational"
-wevtutil cl "Microsoft-Windows-AppxPackaging/Operational"
-wevtutil cl "Microsoft-Windows-Audio/Operational"
-wevtutil cl "Microsoft-Windows-Audio/PlaybackManager"
-wevtutil cl "Microsoft-Windows-BackgroundTaskInfrastructure/Operational"
-wevtutil cl "Microsoft-Windows-Biometrics/Operational"
-wevtutil cl "Microsoft-Windows-BitLocker/BitLocker Management"
-wevtutil cl "Microsoft-Windows-Bits-Client/Operational"
-wevtutil cl "%mwcscls%/Operational"
-wevtutil cl "Microsoft-Windows-Cleanmgr/Diagnostic"
-wevtutil cl "Microsoft-Windows-CloudStore/Operational"
-wevtutil cl "Microsoft-Windows-CodeIntegrity/Operational"
-wevtutil cl "Microsoft-Windows-Containers-BindFlt/Operational"
-wevtutil cl "Microsoft-Windows-Containers-Wcifs/Debug"
-wevtutil cl "Microsoft-Windows-Containers-Wcifs/Operational"
-wevtutil cl "Microsoft-Windows-CoreSystem-SmsRouter-Events/Debug"
-wevtutil cl "Microsoft-Windows-CoreSystem-SmsRouter-Events/Operational"
-wevtutil cl "Microsoft-Windows-Crypto-DPAPI/Operational"
-wevtutil cl "Microsoft-Windows-Crypto-NCrypt/Operational"
-wevtutil cl "%mwdmedp%/Admin"
-wevtutil cl "%mwdmedp%/Debug"
-wevtutil cl "%mwdmedp%/Operational"
-wevtutil cl "Microsoft-Windows-DxgKrnl-Admin"
-wevtutil cl "Microsoft-Windows-DeviceSetupManager/Admin"
-wevtutil cl "Microsoft-Windows-DeviceSetupManager/Operational"
-wevtutil cl "Microsoft-Windows-Diagnosis-DPS/Analytic"
-wevtutil cl "Microsoft-Windows-Diagnosis-DPS/Debug"
-wevtutil cl "Microsoft-Windows-Diagnosis-DPS/Operational"
-wevtutil cl "Microsoft-Windows-Diagnosis-PCW/Operational"
-wevtutil cl "Microsoft-Windows-Diagnosis-Scheduled/Operational"
-wevtutil cl "Microsoft-Windows-Diagnosis-Scripted/Admin"
-wevtutil cl "Microsoft-Windows-Diagnosis-Scripted/Operational"
-wevtutil cl "Microsoft-Windows-Diagnosis-ScriptedDiagnosticsProvider/Operational"
-wevtutil cl "Microsoft-Windows-Diagnostics-Performance/Operational"
-wevtutil cl "Microsoft-Windows-Fault-Tolerant-Heap/Operational"
-wevtutil cl "Microsoft-Windows-GroupPolicy/Operational"
-wevtutil cl "Microsoft-Windows-HelloForBusiness/Operational"
+rem Use a ‘for loop’ to iterate through Windows log files with ‘wevtutil’
+rem Unfortunately, I have not found a method which filters out logfile
+rem names with spaces in them. One possible approach would be to pipe the
+rem data through a command like `findstr /v " "`
+rem
+rem The following command leads to a lot of occurences of the error message:
+rem ‘The specified channel could not be found.’
+for /f %%a in ('wevtutil el') do wevtutil cl "%%a"
+
+rem While it gets most of the log files, it doesn’t get the log files with
+rem spaces in them, so those are still explicitly deleted
+rem
+rem Note: There could be something missing here
+wevtutil cl "Internet Explorer"
+wevtutil cl "Key Management Service"
+wevtutil cl "Microsoft-Windows-Application Server-Applications/Admin"
+wevtutil cl "Microsoft-Windows-Application Server-Applications/Analytic"
+wevtutil cl "Microsoft-Windows-Application Server-Applications/Debug"
+wevtutil cl "Microsoft-Windows-Application Server-Applications/Operational"
+wevtutil cl "Microsoft-Windows-AppLocker/EXE and DLL"
+wevtutil cl "Microsoft-Windows-AppLocker/MSI and Script"
+wevtutil cl "Microsoft-Windows-AppLocker/Packaged app-Deployment"
+wevtutil cl "Microsoft-Windows-AppLocker/Packaged app-Execution"
+wevtutil cl "Microsoft-Windows-CAPI2/Catalog Database Debug"
+wevtutil cl "Microsoft-Windows-Folder Redirection/Operational"
+wevtutil cl "Microsoft-Windows-HomeGroup Control Panel Performance/Diagnostic"
 wevtutil cl "Microsoft-Windows-HomeGroup Control Panel/Operational"
-wevtutil cl "Microsoft-Windows-IKE/Operational"
-wevtutil cl "Microsoft-Windows-International/Operational"
-wevtutil cl "Microsoft-Windows-Kernel-Boot/Operational"
-wevtutil cl "Microsoft-Windows-Kernel-PnP/Configuration"
-wevtutil cl "Microsoft-Windows-Kernel-ShimEngine/Operational"
-wevtutil cl "Microsoft-Windows-Kernel-WHEA/Errors"
-wevtutil cl "Microsoft-Windows-Kernel-WHEA/Operational"
-wevtutil cl "Microsoft-Windows-Kernel-EventTracing/Admin"
-wevtutil cl "Microsoft-Windows-Kernel-EventTracing/Analytic"
+wevtutil cl "Microsoft-Windows-HomeGroup Listener Service/Operational"
+wevtutil cl "Microsoft-Windows-HomeGroup Provider Service Performance/Diagnostic"
+wevtutil cl "Microsoft-Windows-HomeGroup Provider Service/Operational"
+wevtutil cl "Microsoft-Windows-Kernel-PnP/Boot Diagnostic"
+wevtutil cl "Microsoft-Windows-Kernel-PnP/Configuration Diagnostic"
+wevtutil cl "Microsoft-Windows-Kernel-PnP/Device Enumeration Diagnostic"
+wevtutil cl "Microsoft-Windows-Kernel-PnP/Driver Diagnostic"
+wevtutil cl "Microsoft-Windows-Kernel-PnP/Driver Watchdog"
 wevtutil cl "Microsoft-Windows-Known Folders API Service"
-wevtutil cl "Microsoft-Windows-LanguagePackSetup/Operational"
 rem Throws an ‘Access is denied’ message
+rem wevtutil cl "Microsoft-Windows-LiveId/Analytic"
 rem wevtutil cl "Microsoft-Windows-LiveId/Operational"
-wevtutil cl "Microsoft-Windows-MemoryDiagnostics-Results/Debug"
-wevtutil cl "Microsoft-Windows-MUI/Admin"
-wevtutil cl "Microsoft-Windows-MUI/Operational"
-wevtutil cl "Microsoft-Windows-NCSI/Operational"
-wevtutil cl "Microsoft-Windows-NetworkProfile/Operational"
-wevtutil cl "Microsoft-Windows-NlaSvc/Operational"
-wevtutil cl "Microsoft-Windows-Ntfs/Operational"
-wevtutil cl "Microsoft-Windows-Ntfs/WHC"
-wevtutil cl "Microsoft-Windows-OneBackup/Debug"
-wevtutil cl "Microsoft-Windows-Partition/Diagnostic"
-wevtutil cl "Microsoft-Windows-PowerShell/Admin"
-wevtutil cl "Microsoft-Windows-PowerShell/Operational"
-wevtutil cl "Microsoft-Windows-Privacy-Auditing/Operational"
-wevtutil cl "%mwpdp%/Admin"
-wevtutil cl "%mwpdp%/AutoPilot"
-wevtutil cl "%mwpdp%/ManagementService"
-wevtutil cl "Microsoft-Windows-PushNotification-Platform/Admin"
-wevtutil cl "Microsoft-Windows-PushNotification-Platform/Operational"
-wevtutil cl "Microsoft-Windows-ReadyBoost/Operational"
-wevtutil cl "Microsoft-Windows-RemoteAssistance/Admin"
-wevtutil cl "Microsoft-Windows-RemoteAssistance/Operational"
-wevtutil cl "Microsoft-Windows-Resource-Exhaustion-Detector/Operational"
-wevtutil cl "Microsoft-Windows-Resource-Exhaustion-Resolver/Operational"
-wevtutil cl "Microsoft-Windows-Security-LessPrivilegedAppContainer/Operational"
-wevtutil cl "Microsoft-Windows-Security-Mitigations/KernelMode"
-wevtutil cl "Microsoft-Windows-Security-Mitigations/UserMode"
-wevtutil cl "Microsoft-Windows-Security-SPP-UX-Notifications/ActionCenter"
-wevtutil cl "Microsoft-Windows-SettingSync/Debug"
-wevtutil cl "Microsoft-Windows-SettingSync/Operational"
-wevtutil cl "Microsoft-Windows-Shell-Core/ActionCenter"
-wevtutil cl "Microsoft-Windows-Shell-Core/AppDefaults"
-wevtutil cl "Microsoft-Windows-Shell-Core/Diagnostic"
-wevtutil cl "Microsoft-Windows-Shell-Core/LogonTasksChannel"
-wevtutil cl "Microsoft-Windows-Shell-Core/Operational"
-wevtutil cl "Microsoft-Windows-ShellCommon-StartLayoutPopulation/Operational"
-wevtutil cl "Microsoft-Windows-SmbClient/Connectivity"
-wevtutil cl "Microsoft-Windows-SmbClient/Security"
-wevtutil cl "Microsoft-Windows-SMBServer/Operational"
-wevtutil cl "Microsoft-Windows-StateRepository/Operational"
-wevtutil cl "Microsoft-Windows-Storage-ClassPnP/Operational"
-wevtutil cl "Microsoft-Windows-StorageSettings/Diagnostic"
-wevtutil cl "Microsoft-Windows-StorageSpaces-Driver/Operational"
-wevtutil cl "Microsoft-Windows-Storage-Storport/Health"
-wevtutil cl "Microsoft-Windows-Storage-Storport/Operational"
-wevtutil cl "Microsoft-Windows-Store/Operational"
-wevtutil cl "Microsoft-Windows-Storsvc/Diagnostic"
-wevtutil cl "Microsoft-Windows-TaskScheduler/Maintenance"
-wevtutil cl "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational"
-wevtutil cl "Microsoft-Windows-Time-Service/Operational"
-wevtutil cl "Microsoft-Windows-TWinUI/Operational"
-wevtutil cl "Microsoft-Windows-TZSync/Operational"
-wevtutil cl "Microsoft-Windows-UAC/Operational"
-wevtutil cl "Microsoft-Windows-UAC-FileVirtualization/Operational"
-wevtutil cl "Microsoft-Windows-UniversalTelemetryClient/Operational"
+wevtutil cl "Microsoft-Windows-User Control Panel Performance/Diagnostic"
+wevtutil cl "Microsoft-Windows-User Control Panel Usage/Diagnostic"
+wevtutil cl "Microsoft-Windows-User Control Panel/Diagnostic"
+wevtutil cl "Microsoft-Windows-User Control Panel/Operational"
 wevtutil cl "Microsoft-Windows-User Device Registration/Admin"
+wevtutil cl "Microsoft-Windows-User Device Registration/Debug
+wevtutil cl "Microsoft-Windows-User Profile Service/Diagnostic"
 wevtutil cl "Microsoft-Windows-User Profile Service/Operational"
-wevtutil cl "Microsoft-Windows-UserPnp/DeviceInstall"
-wevtutil cl "Microsoft-Windows-VHDMP-Operational"
-wevtutil cl "Microsoft-Windows-VolumeSnapshot-Driver/Operational"
-wevtutil cl "Microsoft-Windows-Wcmsvc/Operational"
-wevtutil cl "Microsoft-Windows-WebAuthN/Operational"
-wevtutil cl "Microsoft-Windows-WER-Diag/Operational"
-wevtutil cl "Microsoft-Windows-WER-PayloadHealth/Operational"
-wevtutil cl "Microsoft-Windows-WFP/Operational"
 wevtutil cl "Microsoft-Windows-Windows Defender/Operational"
-wevtutil cl "%mwwfwas%/ConnectionSecurity"
-wevtutil cl "%mwwfwas%/Firewall"
-wevtutil cl "%mwwfwas%/FirewallDiagnostics"
-wevtutil cl "Microsoft-Windows-WindowsSystemAssessmentTool/Operational"
-wevtutil cl "Microsoft-Windows-WindowsUpdateClient/Operational"
-wevtutil cl "Microsoft-Windows-WinINet-Config/ProxyConfigChanged"
-wevtutil cl "Microsoft-Windows-Winlogon/Operational"
-wevtutil cl "Microsoft-Windows-WinRM/Operational"
-wevtutil cl "Microsoft-Windows-WMI-Activity/Operational"
-wevtutil cl "Security"
-wevtutil cl "Setup"
-wevtutil cl "System"
-wevtutil cl "WFC"
+wevtutil cl "Microsoft-Windows-Windows Defender/WHC"
+wevtutil cl "Microsoft-Windows-Windows Firewall With Advanced Security/ConnectionSecurity"
+wevtutil cl "Microsoft-Windows-Windows Firewall With Advanced Security/ConnectionSecurityVerbose"
+wevtutil cl "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall"
+wevtutil cl "Microsoft-Windows-Windows Firewall With Advanced Security/FirewallDiagnostics"
+wevtutil cl "Microsoft-Windows-Windows Firewall With Advanced Security/FirewallVerbose"
+wevtutil cl "Microsoft-Windows-Workplace Join/Admin"
+wevtutil cl "Network Isolation Operational"
 wevtutil cl "Windows PowerShell"
+
 echo.
 
 echo The following logs were deleted: Epic Games Launcher, GOG Galaxy 2.0,
@@ -369,6 +281,20 @@ reg delete "%hkcuw64%\Microsoft\DirectDraw\MostRecentApplication" /f /va
 echo.
 
 rem Full registry key path:
+rem HKCU\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectPlay\Applications
+echo Cleaning HKCU\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectPlay\Applications
+rem Problematic with applications containing space characters
+for /f %%a in ('reg query HKCU\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectPlay\Applications') do reg delete "%%a" /f
+echo.
+
+rem Full registry key path:
+rem HKCU\SOFTWARE\Microsoft\DirectInput
+rem echo Cleaning HKCU\SOFTWARE\Microsoft\DirectInput
+rem Throws an ‘Access is denied’ message
+rem for /f %%a in ('reg query "HKCU\SOFTWARE\Microsoft\DirectInput"') do reg delete "%%a" /f
+rem echo.
+
+rem Full registry key path:
 rem HKCU\SOFTWARE\Microsoft\DirectInput\MostRecentApplication
 echo Cleaning HKCU\SOFTWARE\Microsoft\DirectInput\MostRecentApplication
 reg delete "HKCU\SOFTWARE\Microsoft\DirectInput\MostRecentApplication" /f /va
@@ -381,9 +307,33 @@ reg delete "HKCU\SOFTWARE\Microsoft\DirectPlay8\Applications" /f /va
 echo.
 
 rem Full registry key path:
+rem HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppBadgeUpdated
+echo Cleaning HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppBadgeUpdated
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppBadgeUpdated" /f /va
+echo.
+
+rem Full registry key path:
+rem HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppLaunch
+echo Cleaning HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppLaunch
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppLaunch" /f /va
+echo.
+
+rem Full registry key path:
 rem HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched
 echo Cleaning HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched
 reg delete "%hkcuwincurrentrkeypath%\Explorer\FeatureUsage\AppSwitched" /f /va
+echo.
+
+rem Full registry key path:
+rem HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\ShowJumpView
+echo Cleaning HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\ShowJumpView
+reg delete "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\ShowJumpView" /f /va
+echo.
+
+rem Full registry path:
+rem HKCU\SOFTWARE\Microsoft\Notepad
+echo Cleaning HKCU\SOFTWARE\Microsoft\Notepad
+reg delete "HKCU\SOFTWARE\Microsoft\Notepad" /f /va
 echo.
 
 rem Full registry key path:
@@ -418,21 +368,21 @@ rem Some video games make Windows 10 create keys with possibly random or
 rem pseudo-random alphanumerical key names divided by four dashes/minuses under
 rem the full key HKCU\System\GameConfigStore\Children and
 rem HKCU\System\GameConfigStore\Parents
-rem
-rem Thusly, the following commands are unfortunately useless since they focus
-rem on all values located under a key.
-rem reg delete "HKCU\System\GameConfigStore\Children" /f /va
-rem reg delete "HKCU\System\GameConfigStore\Parents" /f /va
+echo Cleaning HKCU\System\GameConfigStore\Children
+for /f %%a in ('reg query HKCU\System\GameConfigStore\Children') do reg delete %%a /f
+echo.
+
+echo Cleaning HKCU\System\GameConfigStore\Parents
+for /f %%a in ('reg query HKCU\System\GameConfigStore\Parents') do reg delete %%a /f
+echo.
 
 rem Full registry key path:
 rem HKLM\SOFTWARE\Microsoft\RADAR\HeapLeakDetection\DiagnosedApplications
-rem
-rem Deleting values does the trick, the /va argument however is useless here,
-rem because it doesn’t delete keys. Again, need to find out how to delete all
-rem keys under
-rem HKLM\SOFTWARE\Microsoft\RADAR\HeapLeakDetection\DiagnosedApplications
 echo Cleaning HKLM\SOFTWARE\Microsoft\RADAR\HeapLeakDetection\DiagnosedApplications
 reg delete "%heapleakregpath%\DiagnosedApplications" /f /va
+
+rem Causes problems with applications containing a space character
+for /f %%a in ('reg query %heapleakregpath%\DiagnosedApplications') do reg delete %%a /f
 echo.
 
 rem Full registry key path:
@@ -466,10 +416,8 @@ echo Some keys and values could not be removed. Consider cleaning the following
 echo manually with the registry editor:
 echo.
 
+echo HKCU\SOFTWARE\Classes\VirtualStore\MACHINE\SOFTWARE\Wow6432Node\Microsoft\DirectPlay\Applications
 echo HKCU\SOFTWARE\Microsoft\DirectInput
-echo HKCU\SOFTWARE\Microsoft\Notepad
-echo HKCU\System\GameConfigStore\Children
-echo HKCU\System\GameConfigStore\Parents
 echo HKLM\SOFTWARE\Microsoft\RADAR\HeapLeakDetection\DiagnosedApplications
 echo.
 
