@@ -1,7 +1,7 @@
 @echo off
 
 rem w10-cleaning-tool.bat
-rem Last modified on 16 April 2022
+rem Last modified on 1 February 2023
 
 rem Clean prefetch section
 
@@ -116,14 +116,21 @@ if exist "%steamdir%" (
 rem Removable Windows logs
 echo Deleting removable Windows logs
 echo.
-del "%systemroot%\*.log"
-del "%systemroot%\INF\*.log"
-del "%systemroot%\Logs\*.log"
-del "%systemroot%\Logs\CBS\*.log"
-del "%systemroot%\Logs\DISM\*.log"
-del "%systemroot%\System32\*.log"
-del "%systemroot%\System32\LogFiles\setupcln\*.log"
-del "%systemroot%\SysWOW64\*.log"
+del "%windir%\*.log"
+del "%windir%\INF\*.log"
+del "%windir%\Logs\*.log"
+del "%windir%\Logs\CBS\*.cab"
+del "%windir%\Logs\CBS\*.log"
+del "%windir%\Logs\DISM\*.log"
+del "%windir%\Logs\MoSetup\*.log"
+del "%windir%\Logs\NetSetup\*.etl"
+rem Throws an ‘Access is denied’ error; therefore omitted
+rem del "%windir%\Logs\waasmedic\*.etl"
+del "%windir%\Logs\WindowsUpdate\*.etl"
+del "%windir%\Logs\SIH\*.etl"
+del "%windir%\System32\*.log"
+del "%windir%\System32\LogFiles\setupcln\*.log"
+del "%windir%\SysWOW64\*.log"
 echo.
 
 rem Microsoft Edge Update
@@ -226,7 +233,7 @@ wevtutil cl "Microsoft-Windows-User Control Panel Usage/Diagnostic"
 wevtutil cl "Microsoft-Windows-User Control Panel/Diagnostic"
 wevtutil cl "Microsoft-Windows-User Control Panel/Operational"
 wevtutil cl "Microsoft-Windows-User Device Registration/Admin"
-wevtutil cl "Microsoft-Windows-User Device Registration/Debug
+wevtutil cl "Microsoft-Windows-User Device Registration/Debug"
 wevtutil cl "Microsoft-Windows-User Profile Service/Diagnostic"
 wevtutil cl "Microsoft-Windows-User Profile Service/Operational"
 wevtutil cl "Microsoft-Windows-Windows Defender/Operational"
@@ -289,7 +296,9 @@ echo.
 
 rem Full registry key path:
 rem HKCU\SOFTWARE\Microsoft\DirectInput
+rem
 rem echo Cleaning HKCU\SOFTWARE\Microsoft\DirectInput
+rem
 rem Throws an ‘Access is denied’ message
 rem for /f %%a in ('reg query "HKCU\SOFTWARE\Microsoft\DirectInput"') do reg delete "%%a" /f
 rem echo.

@@ -40,3 +40,8 @@ Version 19.3.2022
 Version 16.4.2022
 - Improve wevtutil routine
 - Improve registry clean section
+
+Version 1.2.2023
+- Include more removable Windows logs
+- Replace %systemroot% with %windir%
+- Fix typo in ‘wevtutil cl’ section
